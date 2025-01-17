@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="text-xl">Editor</h1>
+<div class="my-8">
+    <a class="hover:text-sky-600" href="{{ url_for('core.core') }}">Back home</a>
+</div>
+
+<div class="h-3/5 w-4/5 p-4 m-auto">
+    <div id="editorjs" class="text-left"></div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const editor = new EditorJS({
+            holder: 'editorjs',
+            tools: {
+                header: {
+                    class: Header,
+                    inlineToolbar: true
+                },
+                list: {
+                    class: EditorjsList,
+                    inlineToolbar: true
+                },
+                image: {
+                    class: ImageTool,
+                    config: {
+                        endpoints: {
+                            byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
+                            byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by URL
+                        }
+                    }
+                },
+                quote: {
+                    class: Quote,
+                    inlineToolbar: true,
+                    config: {
+                        quotePlaceholder: 'Enter a quote',
+                        captionPlaceholder: 'Quote\'s author',
+                    },
+                },
+                delimiter: Delimiter,
+                inlineCode: {
+                    class: InlineCode,
+                    shortcut: 'CMD+SHIFT+M',
+                },
+                marker: {
+                    class: Marker,
+                    shortcut: 'CMD+SHIFT+M',
+                },
+                code: CodeTool,
+                linkTool: {
+                    class: LinkTool,
+                    config: {
+                        endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for link data
+                    }
+                },
+                embed: Embed,
+                table: {
+                    class: Table,
+                    inlineToolbar: true,
+                    config: {
+                        rows: 2,
+                        cols: 3,
+                    },
+                },
+            }
+        });
+    });
+</script>
+
+{% endblock %}
