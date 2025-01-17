@@ -8,3 +8,4 @@ This repo contains scaffold templates for project features and architectures tha
 
 # License
 
+[M.I.T](https://github.com/sedexdev/scaffolds/blob/main/LICENSE)
