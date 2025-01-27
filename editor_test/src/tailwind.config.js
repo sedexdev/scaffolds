@@ -1,12 +1,12 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import('@tailwindcss/cli').Config} */
 
 const config = {
-  content: ["./**/*.html", "!./node_modules"],
+  content: ["./**/*.{html, js}", "!./node_modules"],
   darkMode: "selector",
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
 
 export default config;

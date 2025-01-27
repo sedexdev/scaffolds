@@ -1,74 +1,28 @@
-{% extends 'base.html' %}
-
+{% extends 'base.html' %} {% from 'macros.html' import style_icon with context%}
 {% block content %}
 
 <h1 class="text-xl">Editor</h1>
 <div class="my-8">
-    <a class="hover:text-sky-600" href="{{ url_for('core.core') }}">Back home</a>
+  <a class="hover:text-sky-600" href="{{ url_for('core.core') }}">Back home</a>
 </div>
 
-<div class="w-5/5 bg-slate-100 rounded-lg my-12 mx-auto p-0">
-    <div id="editorjs" class="text-left py-4"></div>
+<div class="md:w-4/6 w-5/6 mx-auto my-12">
+  <!-- toolbar -->
+  <div class="flex w-full justify-start">
+    {{ style_icon("bold", "B") }} {{ style_icon("italic", "I") }} {{
+    style_icon("underline", "U") }} {{ style_icon("strike", "S") }} {{
+    style_icon("highlight", "Hi") }} {{ style_icon("heading", "H") }} {{
+    style_icon("bullet", "Bu") }} {{ style_icon("number", "Nu") }} {{
+    style_icon("colour", "Co") }}
+  </div>
+  <!-- text area -->
+  <article class="prose">
+    <div
+      id="editor"
+      class="w-full text-left focus:outline-0 bg-gray-100 rounded-lg p-6"
+      contenteditable="true"
+    ></div>
+  </article>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const editor = new EditorJS({
-            holder: 'editorjs',
-            tools: {
-                header: {
-                    class: Header,
-                    inlineToolbar: true
-                },
-                list: {
-                    class: EditorjsList,
-                    inlineToolbar: true
-                },
-                image: {
-                    class: ImageTool,
-                    config: {
-                        endpoints: {
-                            byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
-                            byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by URL
-                        }
-                    }
-                },
-                quote: {
-                    class: Quote,
-                    inlineToolbar: true,
-                    config: {
-                        quotePlaceholder: 'Enter a quote',
-                        captionPlaceholder: 'Quote\'s author',
-                    },
-                },
-                delimiter: Delimiter,
-                inlineCode: {
-                    class: InlineCode,
-                    shortcut: 'CMD+SHIFT+M',
-                },
-                marker: {
-                    class: Marker,
-                    shortcut: 'CMD+SHIFT+M',
-                },
-                code: CodeTool,
-                linkTool: {
-                    class: LinkTool,
-                    config: {
-                        endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for link data
-                    }
-                },
-                embed: Embed,
-                table: {
-                    class: Table,
-                    inlineToolbar: true,
-                    config: {
-                        rows: 2,
-                        cols: 3,
-                    },
-                },
-            }
-        });
-    });
-</script>
 
 {% endblock %}
